@@ -1,0 +1,93 @@
+﻿<Window x:Class="VideoPlayer.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:VideoPlayer"
+    mc:Ignorable="d"
+     Title="MainWindow" Height="600" Width="1100" MinWidth="1100"  MinHeight="600" WindowStyle="None"  AllowsTransparency="False" WindowStartupLocation="CenterOwner"  Loaded="Window_Loaded" >
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+        CaptionHeight="0"
+        ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
+    <Grid Style="{StaticResource as}"  Background="#1a1a1a" >
+        <StackPanel Grid.Row="0" Style="{StaticResource TB}"  Name="TitleBar" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown"  VerticalAlignment="Center">
+            <StackPanel  Name="TitleBar2" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Style="{DynamicResource toolbarTOP}"  x:Name="Turn" Click="Turn_Click">
+                    <Image Source="/images/turn.png"></Image>
+                </Button>
+
+                <Button Style="{DynamicResource toolbarTOP}" x:Name="Exit" Click="Exit_Click">
+                    <Image Source="/images/close.png"></Image>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+
+        <DockPanel Grid.Row="1" Style="{StaticResource ToolBarDockPanel}" LastChildFill="False"  >
+
+            <Button DockPanel.Dock="Right" Style="{DynamicResource ToolBarButton}" Name="Trash" Click= "Trash_Click" >
+                <Image Source="/images/trash.png" Width="32"></Image>
+            </Button>
+            
+            
+            <!--
+            <Button DockPanel.Dock="Left" Style="{DynamicResource ToolBarButton}"/>
+            <Button DockPanel.Dock="Right" Style="{DynamicResource ToolBarButton}">
+                <Image Source="/images/search.png" Stretch="Fill" Width="29" Height="29" Opacity="0.7"/>
+            </Button>
+            -->
+        </DockPanel>
+        <DockPanel x:Name="DockFolders" Style="{StaticResource FolderDockPanel}" Grid.Row="2"  LastChildFill="False">
+            <Button x:Name="ButtonAddFile" Style="{StaticResource FolderButton}" Click="ButtonAddFile_Click">
+                <Image Source="/images/plus.png" Stretch="Fill" Width="29" Height="29" Opacity="0.7"/>
+            </Button>
+            
+        </DockPanel>
+        <TextBlock Grid.Row="1" Style="{StaticResource FolderTextBlock}" Margin="26,10,680,0" >
+               <Run>Всі папки</Run>
+        </TextBlock>
+
+        <TextBlock Grid.Row="3" Style="{StaticResource FolderTextBlock}" Margin="26,5,664,29" >
+               <Run>Всі Файли</Run>
+        </TextBlock>
+
+        <TextBox Visibility="Hidden" x:Name="txtbox" Margin="538,32,22,40" Grid.Row="2"/>
+        <DataGrid ScrollViewer.HorizontalScrollBarVisibility="Disabled" HeadersVisibility="Column" Grid.Row="3" CanUserResizeColumns="False"  CanUserResizeRows="False" Style="{StaticResource DataGridStyle}" x:Name="dg" Margin="25,44,25,15      " AutoGenerateColumns="False" Grid.RowSpan="2" HorizontalAlignment="Center"  >
+            <DataGrid.Columns  >
+                <DataGridTextColumn Binding="{Binding Path=name}"  HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Header="Ім'я" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Path=dateCreation}" HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Header="Дата створення" Width="110"/>
+                <DataGridTextColumn Binding="{Binding Path=videoLenght}" HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Header="Довжина відео" Width="100"/>
+                <DataGridTextColumn Binding="{Binding Path=videoSize}" HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Header="Розмір відео" Width="100"/>
+                <DataGridTextColumn Binding="{Binding Path=videoType}" HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Header="Тип відео" Width="80"/>
+            </DataGrid.Columns>
+            <DataGrid.RowStyle >
+                <Style TargetType="{x:Type DataGridRow}">
+                    <!--
+                    -->
+                    <Setter Property="Background" Value="#1a1a1a"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Margin" Value="0,0,5,5"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="RowDoubleClick"/>
+
+                </Style>
+
+            </DataGrid.RowStyle>
+
+        </DataGrid>
+        <Frame x:Name="VideoPlayerFrame2" Background="Transparent" Visibility="Hidden" NavigationUIVisibility="Hidden" Grid.Row="1" Grid.RowSpan="5"/>
+     
+        
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="104"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+    </Grid>
+</Window>
+
